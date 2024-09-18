@@ -30,13 +30,6 @@ Este repositorio contiene una configuración de pipeline para Azure Data Factory
 - Para instrucciones detalladas sobre la configuración de pipelines en Azure Data Factory, consulta la [Documentación de Azure Data Factory](https://docs.microsoft.com/en-us/azure/data-factory/).
 - Para asistencia con Azure Data Lake Storage Gen2, visita la [Documentación de Azure Data Lake Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction).
 
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
-## Contacto
-
-Para cualquier pregunta o soporte, por favor contacta a [Tu Nombre] en [tu-email@example.com].
 
 ---
 
@@ -70,6 +63,4 @@ This repository contains a pipeline configuration for Azure Data Factory (ADF). 
 - For detailed instructions on setting up Azure Data Factory pipelines, refer to the [Azure Data Factory Documentation](https://docs.microsoft.com/en-us/azure/data-factory/).
 - For assistance with Azure Data Lake Storage Gen2, visit the [Azure Data Lake Storage Documentation](https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction).
 
-## License
 
-This project is licensed under th
