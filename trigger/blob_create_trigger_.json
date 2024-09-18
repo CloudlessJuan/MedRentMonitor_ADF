@@ -1,0 +1,28 @@
+{
+	"name": "blob_create_trigger_",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "hosuignmonitor_frlisting",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"file_name": "@triggerBody().fileName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/housingmonitor/blobs/json/",
+			"blobPathEndsWith": ".json",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/dce2ba90-ba09-4f6f-9063-cf9fc679116e/resourceGroups/housing_group/providers/Microsoft.Storage/storageAccounts/housingwatcher",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

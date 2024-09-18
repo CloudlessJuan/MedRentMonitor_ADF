@@ -1,0 +1,260 @@
+{
+	"name": "hosuignmonitor_frlisting",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['address']"
+								},
+								"sink": {
+									"name": "address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['bathrooms']"
+								},
+								"sink": {
+									"name": "bathrooms",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['bedrooms']"
+								},
+								"sink": {
+									"name": "bedrooms",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['code']"
+								},
+								"sink": {
+									"name": "code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['description']"
+								},
+								"sink": {
+									"name": "description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['facilities']"
+								},
+								"sink": {
+									"name": "facilities",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"path": "$['latitude']"
+								},
+								"sink": {
+									"name": "latitude",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['longitude']"
+								},
+								"sink": {
+									"name": "longitude",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']"
+								},
+								"sink": {
+									"name": "location",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['city']"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['commune']"
+								},
+								"sink": {
+									"name": "commune",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['m2']"
+								},
+								"sink": {
+									"name": "m2",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['owner_name']"
+								},
+								"sink": {
+									"name": "owner_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['owner_type']"
+								},
+								"sink": {
+									"name": "owner_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['price']"
+								},
+								"sink": {
+									"name": "price",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['admin_included']"
+								},
+								"sink": {
+									"name": "admin_included",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"path": "$['stratum']"
+								},
+								"sink": {
+									"name": "stratum",
+									"type": "Int16"
+								}
+							},
+							{
+								"source": {
+									"path": "$['title']"
+								},
+								"sink": {
+									"name": "title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['updated_at']"
+								},
+								"sink": {
+									"name": "updated_at",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['query_datetime']"
+								},
+								"sink": {
+									"name": "query_datetime",
+									"type": "DateTime"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "housingmonitor_json",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name_ds": {
+								"value": "@pipeline().parameters.file_name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-09-02T21:24:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

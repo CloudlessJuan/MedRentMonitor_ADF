@@ -1,0 +1,9 @@
+{
+	"name": "housingmonitoradf-cent",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ca1251dd-0eb6-432e-ae88-c09bf8943c5b",
+		"tenantId": "090f9a01-18d7-460d-918d-230b944b809e"
+	}
+}

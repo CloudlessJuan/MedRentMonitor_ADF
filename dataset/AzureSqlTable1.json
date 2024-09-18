@@ -1,0 +1,125 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "hosuingmonitordb_FRListing",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "sk",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "id",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "address",
+				"type": "varchar"
+			},
+			{
+				"name": "bathrooms",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "bedrooms",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "code",
+				"type": "varchar"
+			},
+			{
+				"name": "description",
+				"type": "text"
+			},
+			{
+				"name": "facilities",
+				"type": "text"
+			},
+			{
+				"name": "latitude",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 8
+			},
+			{
+				"name": "longitude",
+				"type": "decimal",
+				"precision": 11,
+				"scale": 8
+			},
+			{
+				"name": "location",
+				"type": "varchar"
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			},
+			{
+				"name": "commune",
+				"type": "varchar"
+			},
+			{
+				"name": "m2",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "owner_name",
+				"type": "varchar"
+			},
+			{
+				"name": "owner_type",
+				"type": "varchar"
+			},
+			{
+				"name": "price",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "admin_included",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "stratum",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "title",
+				"type": "varchar"
+			},
+			{
+				"name": "updated_at",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "query_datetime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "SCRP",
+			"table": "Fr_listings"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

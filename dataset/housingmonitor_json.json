@@ -1,0 +1,96 @@
+{
+	"name": "housingmonitor_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "housingmonitor_jsonexample",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_name_ds": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name_ds",
+					"type": "Expression"
+				},
+				"folderPath": "json",
+				"fileSystem": "housingmonitor"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"bathrooms": {
+					"type": "integer"
+				},
+				"bedrooms": {
+					"type": "integer"
+				},
+				"code": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"facilities": {
+					"type": "string"
+				},
+				"id": {
+					"type": "integer"
+				},
+				"latitude": {
+					"type": "number"
+				},
+				"longitude": {
+					"type": "number"
+				},
+				"location": {
+					"type": "string"
+				},
+				"city": {
+					"type": "string"
+				},
+				"commune": {
+					"type": "string"
+				},
+				"m2": {
+					"type": "number"
+				},
+				"owner_name": {
+					"type": "string"
+				},
+				"owner_type": {
+					"type": "string"
+				},
+				"price": {
+					"type": "integer"
+				},
+				"admin_included": {
+					"type": "integer"
+				},
+				"stratum": {
+					"type": "integer"
+				},
+				"title": {
+					"type": "string"
+				},
+				"updated_at": {
+					"type": "string"
+				},
+				"query_datetime": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
