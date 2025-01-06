@@ -2,7 +2,7 @@
 	"name": "housingmonitor_json",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "housingmonitor_jsonexample",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -20,7 +20,7 @@
 					"type": "Expression"
 				},
 				"folderPath": "json",
-				"fileSystem": "housingmonitor"
+				"fileSystem": "df1fr"
 			}
 		},
 		"schema": {
