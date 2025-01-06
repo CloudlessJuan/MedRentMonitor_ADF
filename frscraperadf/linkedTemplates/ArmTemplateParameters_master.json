@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "frscraperadf"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"hosuingmonitordb_FRListing_password": {
+			"value": ""
+		},
+		"housingmonitor_jsonexample_accountKey": {
+			"value": ""
+		},
+		"SCRP_FrListings_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://df1fr.dfs.core.windows.net/"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_server": {
+			"value": "housingmonitor.database.windows.net"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_database": {
+			"value": "housingmonitordb"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"housingmonitor_jsonexample_properties_typeProperties_url": {
+			"value": "https://housingwatcher.dfs.core.windows.net/"
+		},
+		"blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name": {
+			"value": "@triggerBody().fileName"
+		},
+		"blob_create_trigger__properties_typeProperties_scope": {
+			"value": "/subscriptions/dce2ba90-ba09-4f6f-9063-cf9fc679116e/resourceGroups/housing_group/providers/Microsoft.Storage/storageAccounts/housingwatcher"
+		},
+		"SCRP_FrListings_properties_typeProperties_server": {
+			"value": "frscrapermssqldb.database.windows.net"
+		},
+		"SCRP_FrListings_properties_typeProperties_database": {
+			"value": "frscrapermssqldb"
+		},
+		"SCRP_FrListings_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

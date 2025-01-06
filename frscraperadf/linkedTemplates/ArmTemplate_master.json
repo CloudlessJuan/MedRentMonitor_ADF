@@ -1,0 +1,140 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nombre de instancia de Data Factory",
+			"defaultValue": "frscraperadf"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"AzureDataLakeStorage1\""
+		},
+		"hosuingmonitordb_FRListing_password": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"password\"de \"hosuingmonitordb_FRListing\""
+		},
+		"housingmonitor_jsonexample_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"housingmonitor_jsonexample\""
+		},
+		"SCRP_FrListings_password": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"password\"de \"SCRP_FrListings\""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://df1fr.dfs.core.windows.net/"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "housingmonitor.database.windows.net"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "housingmonitordb"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"housingmonitor_jsonexample_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://housingwatcher.dfs.core.windows.net/"
+		},
+		"blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"blob_create_trigger__properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/dce2ba90-ba09-4f6f-9063-cf9fc679116e/resourceGroups/housing_group/providers/Microsoft.Storage/storageAccounts/housingwatcher"
+		},
+		"SCRP_FrListings_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "frscrapermssqldb.database.windows.net"
+		},
+		"SCRP_FrListings_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "frscrapermssqldb"
+		},
+		"SCRP_FrListings_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI de la cuenta de almacenamiento que contiene las plantillas de ARM vinculadas."
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Token de SAS para la cuenta de almacenamiento que contiene las plantillas de ARM vinculadas"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "frscraperadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"hosuingmonitordb_FRListing_password": {
+						"value": "[parameters('hosuingmonitordb_FRListing_password')]"
+					},
+					"housingmonitor_jsonexample_accountKey": {
+						"value": "[parameters('housingmonitor_jsonexample_accountKey')]"
+					},
+					"SCRP_FrListings_password": {
+						"value": "[parameters('SCRP_FrListings_password')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"hosuingmonitordb_FRListing_properties_typeProperties_server": {
+						"value": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_server')]"
+					},
+					"hosuingmonitordb_FRListing_properties_typeProperties_database": {
+						"value": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_database')]"
+					},
+					"hosuingmonitordb_FRListing_properties_typeProperties_userName": {
+						"value": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_userName')]"
+					},
+					"housingmonitor_jsonexample_properties_typeProperties_url": {
+						"value": "[parameters('housingmonitor_jsonexample_properties_typeProperties_url')]"
+					},
+					"SCRP_FrListings_properties_typeProperties_server": {
+						"value": "[parameters('SCRP_FrListings_properties_typeProperties_server')]"
+					},
+					"SCRP_FrListings_properties_typeProperties_database": {
+						"value": "[parameters('SCRP_FrListings_properties_typeProperties_database')]"
+					},
+					"SCRP_FrListings_properties_typeProperties_userName": {
+						"value": "[parameters('SCRP_FrListings_properties_typeProperties_userName')]"
+					},
+					"blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name": {
+						"value": "[parameters('blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name')]"
+					},
+					"blob_create_trigger__properties_typeProperties_scope": {
+						"value": "[parameters('blob_create_trigger__properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

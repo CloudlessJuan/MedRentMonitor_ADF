@@ -1,0 +1,681 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nombre de instancia de Data Factory",
+			"defaultValue": "frscraperadf"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"AzureDataLakeStorage1\""
+		},
+		"hosuingmonitordb_FRListing_password": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"password\"de \"hosuingmonitordb_FRListing\""
+		},
+		"housingmonitor_jsonexample_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"housingmonitor_jsonexample\""
+		},
+		"SCRP_FrListings_password": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"password\"de \"SCRP_FrListings\""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://df1fr.dfs.core.windows.net/"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "housingmonitor.database.windows.net"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "housingmonitordb"
+		},
+		"hosuingmonitordb_FRListing_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"housingmonitor_jsonexample_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://housingwatcher.dfs.core.windows.net/"
+		},
+		"blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"blob_create_trigger__properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/dce2ba90-ba09-4f6f-9063-cf9fc679116e/resourceGroups/housing_group/providers/Microsoft.Storage/storageAccounts/housingwatcher"
+		},
+		"SCRP_FrListings_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "frscrapermssqldb.database.windows.net"
+		},
+		"SCRP_FrListings_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "frscrapermssqldb"
+		},
+		"SCRP_FrListings_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/hosuignmonitor_frlisting')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['address']"
+										},
+										"sink": {
+											"name": "address",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['bathrooms']"
+										},
+										"sink": {
+											"name": "bathrooms",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"path": "$['bedrooms']"
+										},
+										"sink": {
+											"name": "bedrooms",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"path": "$['code']"
+										},
+										"sink": {
+											"name": "code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['description']"
+										},
+										"sink": {
+											"name": "description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['facilities']"
+										},
+										"sink": {
+											"name": "facilities",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['id']"
+										},
+										"sink": {
+											"name": "id",
+											"type": "Int64"
+										}
+									},
+									{
+										"source": {
+											"path": "$['latitude']"
+										},
+										"sink": {
+											"name": "latitude",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "$['longitude']"
+										},
+										"sink": {
+											"name": "longitude",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "$['location']"
+										},
+										"sink": {
+											"name": "location",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['city']"
+										},
+										"sink": {
+											"name": "city",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['commune']"
+										},
+										"sink": {
+											"name": "commune",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['m2']"
+										},
+										"sink": {
+											"name": "m2",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "$['owner_name']"
+										},
+										"sink": {
+											"name": "owner_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['owner_type']"
+										},
+										"sink": {
+											"name": "owner_type",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['price']"
+										},
+										"sink": {
+											"name": "price",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "$['admin_included']"
+										},
+										"sink": {
+											"name": "admin_included",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"path": "$['stratum']"
+										},
+										"sink": {
+											"name": "stratum",
+											"type": "Int16"
+										}
+									},
+									{
+										"source": {
+											"path": "$['title']"
+										},
+										"sink": {
+											"name": "title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['updated_at']"
+										},
+										"sink": {
+											"name": "updated_at",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"path": "$['query_datetime']"
+										},
+										"sink": {
+											"name": "query_datetime",
+											"type": "DateTime"
+										}
+									}
+								],
+								"collectionReference": ""
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "housingmonitor_json",
+								"type": "DatasetReference",
+								"parameters": {
+									"file_name_ds": {
+										"value": "@pipeline().parameters.file_name",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"file_name": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-09-02T21:24:00Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/housingmonitor_json')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SCRP_FrListings",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "sk",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "id",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "address",
+						"type": "varchar"
+					},
+					{
+						"name": "bathrooms",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "bedrooms",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "code",
+						"type": "varchar"
+					},
+					{
+						"name": "description",
+						"type": "text"
+					},
+					{
+						"name": "facilities",
+						"type": "text"
+					},
+					{
+						"name": "latitude",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 8
+					},
+					{
+						"name": "longitude",
+						"type": "decimal",
+						"precision": 11,
+						"scale": 8
+					},
+					{
+						"name": "location",
+						"type": "varchar"
+					},
+					{
+						"name": "city",
+						"type": "varchar"
+					},
+					{
+						"name": "commune",
+						"type": "varchar"
+					},
+					{
+						"name": "m2",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 2
+					},
+					{
+						"name": "owner_name",
+						"type": "varchar"
+					},
+					{
+						"name": "owner_type",
+						"type": "varchar"
+					},
+					{
+						"name": "price",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "admin_included",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "stratum",
+						"type": "smallint",
+						"precision": 5
+					},
+					{
+						"name": "title",
+						"type": "varchar"
+					},
+					{
+						"name": "updated_at",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "query_datetime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SCRP",
+					"table": "Fr_listings"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SCRP_FrListings')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/housingmonitor_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"file_name_ds": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().file_name_ds",
+							"type": "Expression"
+						},
+						"folderPath": "json",
+						"fileSystem": "df1fr"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"address": {
+							"type": "string"
+						},
+						"bathrooms": {
+							"type": "integer"
+						},
+						"bedrooms": {
+							"type": "integer"
+						},
+						"code": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"facilities": {
+							"type": "string"
+						},
+						"id": {
+							"type": "integer"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"location": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						},
+						"commune": {
+							"type": "string"
+						},
+						"m2": {
+							"type": "number"
+						},
+						"owner_name": {
+							"type": "string"
+						},
+						"owner_type": {
+							"type": "string"
+						},
+						"price": {
+							"type": "integer"
+						},
+						"admin_included": {
+							"type": "integer"
+						},
+						"stratum": {
+							"type": "integer"
+						},
+						"title": {
+							"type": "string"
+						},
+						"updated_at": {
+							"type": "string"
+						},
+						"query_datetime": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/hosuingmonitordb_FRListing')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_server')]",
+					"database": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('hosuingmonitordb_FRListing_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('hosuingmonitordb_FRListing_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/housingmonitor_jsonexample')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('housingmonitor_jsonexample_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('housingmonitor_jsonexample_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/blob_create_trigger_')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "hosuignmonitor_frlisting",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"file_name": "[parameters('blob_create_trigger__properties_hosuignmonitor_frlisting_parameters_file_name')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/housingmonitor/blobs/json/",
+					"blobPathEndsWith": ".json",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('blob_create_trigger__properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/hosuignmonitor_frlisting')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SCRP_FrListings')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('SCRP_FrListings_properties_typeProperties_server')]",
+					"database": "[parameters('SCRP_FrListings_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('SCRP_FrListings_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SCRP_FrListings_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
