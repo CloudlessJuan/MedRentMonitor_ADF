@@ -1,0 +1,9 @@
+{
+	"name": "frscraperadf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "04ac1f03-b921-4610-9b98-7b697050f3cf",
+		"tenantId": "57176c3a-5e94-47a6-b7ca-24b2d9ad7583"
+	}
+}
